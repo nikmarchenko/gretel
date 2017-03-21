@@ -192,7 +192,7 @@ module Gretel
         end
 
         html = html_fragments.join(" ").html_safe
-        content_tag(options[:container_tag], html, id: options[:id], class: options[:class], itemtype: container_item_type)
+        content_tag(options[:container_tag], html, id: options[:id], class: options[:class], itemscope: container_item_scope, itemtype: container_item_type)
       end
 
       alias :to_s :render
@@ -251,6 +251,11 @@ module Gretel
       def container_item_type
         return unless options[:semantic]
         'http://schema.org/BreadcrumbList'
+      end
+
+      def container_item_scope
+        return unless options[:semantic]
+        ""
       end
 
       # Proxy for +context.link_to+ that can be overridden by plugins.
